@@ -67,16 +67,46 @@ class VeiculoController {
     private $dao;
 
     public function __construct() {
-        $this->dao = new VeiculoDAO();
+        $conexao = new PDO("mysql:host=localhost;dbname=nome_do_banco", "usuario", "senha");
+        $this->dao = new VeiculoDAO($conexao);
     }
 
     public function getVeiculos() {
-        $veiculos = $this->dao->getVeiculos();
-        return json_encode(array_map(function($veiculo) { return $veiculo->{"__stdClass"}; }, $veiculos));
+        $veiculos = $this->dao->listar();
+        return json_encode($veiculos);
     }
 
     public function getVeiculoById($id) {
         $veiculo = $this->dao->getVeiculoById($id);
         if ($veiculo) {
-            return json_encode($veiculo->{"__stdClass"});
-       
+            return json_encode($veiculo);
+        } else {
+            return false;
+        }
+    }
+
+    public function inserirVeiculo($modelo, $marca, $ano, $placa, $cor) {
+        if ($this->dao->inserir($modelo, $marca, $ano, $placa, $cor)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function atualizarVeiculo($id, $modelo, $marca, $ano, $placa, $cor) {
+        if ($this->dao->atualizar($id, $modelo, $marca, $ano, $placa, $cor)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function excluirVeiculo($id) {
+        if ($this->dao->excluir($id)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+

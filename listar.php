@@ -65,4 +65,17 @@ echo "<table>";
 echo "<tr><th>ID</th><th>Modelo</th><th>Marca</th><th>Ano</th><th>Placa</th><th>Cor</th><th>Ações</th></tr>";
 while ($linha = mysqli_fetch_assoc($resultado)) {
     echo "<tr>";
-    echo "<td>"
+    echo "<td>" . $linha["id"] . "</td>";
+    echo "<td>" . $linha["modelo"] . "</td>";
+    echo "<td>" . $linha["marca"] . "</td>";
+    echo "<td>" . $linha["ano"] . "</td>";
+    echo "<td>" . $linha["placa"] . "</td>";
+    echo "<td>" . $linha["cor"] . "</td>";
+    echo "<td><a href='editar.php?id=" . $linha["id"] . "'>Editar</a> | <a href='?excluir_id=" . $linha["id"] . "' onclick='return confirm(\"Tem certeza que deseja excluir este veículo?\")'>Excluir</a></td>";
+    echo "</tr>";
+}
+echo "</table>";
+
+mysqli_close($conn);
+
+?>

@@ -81,10 +81,10 @@ if (isset($_GET['search'])) {
 </table>
 
 
-<div>
-    <?php if ($total_pages > 1): ?>
-        <?php for ($i = 1; $i <= $total_pages; $i++): ?>
-            <?php if ($i == $page): ?>
-                <strong><?php echo $i; ?></strong>
-            <?php else: ?>
-                <a href="<?php echo $_SERVER['PHP_SELF'] . "?page=$i&search=$search
+<?php if ($i == $page): ?>
+    <strong><?php echo $i; ?></strong>
+<?php else: ?>
+    <a href="<?php echo $_SERVER['PHP_SELF'] . "?page=$i&search=$search"; ?>">
+        <?php echo $i; ?>
+    </a>
+<?php endif; ?>
